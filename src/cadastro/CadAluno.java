@@ -28,6 +28,8 @@ public class CadAluno extends javax.swing.JFrame {
         numFone.setText("");
         numCelular.setText("");
         emailAluno.setText("");
+        nomeCurso.setText("");
+        nomeTurma.setText("");
     }
 
     /**
@@ -54,10 +56,12 @@ public class CadAluno extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         codAluno = new javax.swing.JLabel();
         nomeAluno = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        nomeTurma = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        turmaAluno = new javax.swing.JTextField();
-        cursoLabel = new javax.swing.JLabel();
-        cursoAluno = new javax.swing.JTextField();
+        idCurso = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        nomeCurso = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -120,15 +124,23 @@ public class CadAluno extends javax.swing.JFrame {
         codAluno.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         codAluno.setText("Nome:");
 
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel6.setText("Turma:");
+
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel5.setText("Turma:");
+        jLabel5.setText("id. Curso:");
 
-        turmaAluno.setEnabled(false);
+        idCurso.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                idCursoFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                idCursoFocusLost(evt);
+            }
+        });
 
-        cursoLabel.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        cursoLabel.setText("Curso:");
-
-        cursoAluno.setEnabled(false);
+        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel7.setText("Nome:");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -157,27 +169,29 @@ public class CadAluno extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
-                            .addComponent(jLabel3))
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel6))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(numFone, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(numCelular, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(emailAluno, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(numFone, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, 23, Short.MAX_VALUE)
-                                .addComponent(numCelular, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5)
-                            .addComponent(cursoLabel))
-                        .addGap(22, 22, 22)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(turmaAluno, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cursoAluno, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                                .addComponent(nomeTurma, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(idCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel7)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(nomeCurso)))))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -201,13 +215,13 @@ public class CadAluno extends javax.swing.JFrame {
                     .addComponent(emailAluno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(nomeTurma, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5)
-                    .addComponent(turmaAluno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cursoLabel)
-                    .addComponent(cursoAluno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
+                    .addComponent(idCurso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7)
+                    .addComponent(nomeCurso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(butNovoAluno)
                     .addComponent(butGravarAluno)
@@ -257,8 +271,8 @@ public class CadAluno extends javax.swing.JFrame {
                     numFone.setText(rs.getString("telefone"));
                     numCelular.setText(rs.getString("celular"));
                     emailAluno.setText(rs.getString("email"));
-                    turmaAluno.setText(rs.getString("nomeTurma"));
-                    cursoAluno.setText(rs.getString("nomecurso"));
+                    nomeTurma.setText(rs.getString("nomeTurma"));
+                    nomeCurso.setText(rs.getString("nomecurso"));
                 }else{
                     matrAluno.setText("NOVO");
                 }
@@ -323,7 +337,7 @@ public class CadAluno extends javax.swing.JFrame {
     private void butSairCadAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butSairCadAlunoActionPerformed
         this.dispose();
     }//GEN-LAST:event_butSairCadAlunoActionPerformed
-    //Bptão apagar aluno
+    //Botão apagar aluno
     private void butApagarAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butApagarAlunoActionPerformed
         String sql = "";
         int aux = 0;
@@ -356,6 +370,47 @@ public class CadAluno extends javax.swing.JFrame {
         // TODO add your hanadling code here:
     }//GEN-LAST:event_matrAlunoActionPerformed
 
+    private void idCursoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_idCursoFocusLost
+        // TODO add your handling code here:
+        //vai servir para eu ver qual o curso vou cadastrar para o aluno
+        String sql = "";
+        try {
+            if(!idCurso.getText().equals("") && !idCurso.getText().equals("not")){
+                sql = "select * from curso where idcurso = ?";
+                conn.conectar();
+                conn.sttm = conn.con.prepareStatement(sql);
+                conn.sttm.setInt(1, Integer.parseInt(idCurso.getText()));
+                ResultSet rs = conn.sttm.executeQuery();
+                if(rs.next()){
+                    idCurso.setText(rs.getString("idcurso"));
+                    nomeCurso.setText(rs.getString("nomecurso"));
+                }else{
+                    idCurso.setText("not");
+                }
+            }else{
+                idCurso.setText("not");
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }finally{
+            try {
+                conn.con.close();
+            } catch (Exception e) {
+            }
+        }
+    }//GEN-LAST:event_idCursoFocusLost
+    
+    private void idCursoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_idCursoFocusGained
+        // TODO add your handling code here:
+        //limpar campo idCurso e nomeCurso
+        limparCurso();
+    }//GEN-LAST:event_idCursoFocusGained
+
+    public void limparCurso(){        
+        idCurso.setText("");
+        nomeCurso.setText("");
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -397,19 +452,21 @@ public class CadAluno extends javax.swing.JFrame {
     private javax.swing.JButton butNovoAluno;
     private javax.swing.JButton butSairCadAluno;
     private javax.swing.JLabel codAluno;
-    private javax.swing.JTextField cursoAluno;
-    private javax.swing.JLabel cursoLabel;
     private javax.swing.JTextField emailAluno;
+    private javax.swing.JTextField idCurso;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField matrAluno;
     private javax.swing.JTextField nomeAluno;
+    private javax.swing.JTextField nomeCurso;
+    private javax.swing.JTextField nomeTurma;
     private javax.swing.JTextField numCelular;
     private javax.swing.JTextField numFone;
-    private javax.swing.JTextField turmaAluno;
     // End of variables declaration//GEN-END:variables
 }
