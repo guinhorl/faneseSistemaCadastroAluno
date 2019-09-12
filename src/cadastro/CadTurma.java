@@ -192,14 +192,15 @@ public class CadTurma extends javax.swing.JFrame {
         String sql = "";
         try {
             if (!codTurma.getText().equals("") && !codTurma.getText().equals("NOVO")) {
-                sql = "select t.codigo, t.nome, t.cod_curso, c.nomecurso from turma as t left join curso as c on t.cod_curso = c.idcurso where t.codigo = ?";
+                //sql = "select t.codigo, t.nome, t.cod_curso, c.nomecurso from turma as t inner join curso as c on t.cod_curso = c.idcurso where t.codigo = ?";
+                sql = "select t.codigo, t.nomeTurma, t.cod_curso, c.nomecurso from turma as t inner join curso as c on t.cod_curso = c.idcurso where t.codigo = ?";
                 conexao.conectar();
                 conexao.sttm = conexao.con.prepareStatement(sql);
                 conexao.sttm.setInt(1, Integer.parseInt(codTurma.getText()));
                 ResultSet rs = conexao.sttm.executeQuery();
                 if (rs.next()) {
                     codTurma.setText(rs.getString("codigo"));
-                    nomeTurma.setText(rs.getString("nome"));
+                    nomeTurma.setText(rs.getString("nomeTurma"));
                     codCurso.setText(rs.getString("cod_curso"));
                     nomeCurso.setText(rs.getString("nomecurso"));
                 } else {
@@ -228,13 +229,13 @@ public class CadTurma extends javax.swing.JFrame {
         try {
             conexao.conectar();
             if (codTurma.getText().equals("NOVO")) {
-                sql = "insert into turma(nome, cod_curso) values (?, ?)";
+                sql = "insert into turma(nomeTurma, cod_curso) values (?, ?)";
                 conexao.sttm = conexao.con.prepareStatement(sql);
                 //conexao.sttm.setInt(2, Integer.parseInt(codTurma.getText()));
                 conexao.sttm.setString(1, nomeTurma.getText());                
                 conexao.sttm.setInt(2, Integer.parseInt(codCurso.getText()));
             } else {
-                sql = "UPDATE turma Set nome = ?, cod_curso = ? WHERE codigo = ?";
+                sql = "UPDATE turma Set nomeTurma = ?, cod_curso = ? WHERE codigo = ?";
                 conexao.sttm = conexao.con.prepareStatement(sql);
                 conexao.sttm.setString(1, nomeTurma.getText());
                 conexao.sttm.setInt(2, Integer.parseInt(codCurso.getText()));
@@ -288,10 +289,41 @@ public class CadTurma extends javax.swing.JFrame {
 
     private void codCursoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_codCursoFocusGained
         // TODO add your handling code here:
+        limparNomeCurso();
     }//GEN-LAST:event_codCursoFocusGained
 
+    public void limparNomeCurso() {        
+        codCurso.setText("");
+        nomeCurso.setText("");
+    }
+    
     private void codCursoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_codCursoFocusLost
         // TODO add your handling code here:
+       String sql = "";
+        try {
+            if(!codCurso.getText().equals("") && !codCurso.getText().equals("not")){
+                sql = "select * from curso where idcurso = ?";
+                conexao.conectar();
+                conexao.sttm = conexao.con.prepareStatement(sql);
+                conexao.sttm.setInt(1, Integer.parseInt(codCurso.getText()));
+                ResultSet rs = conexao.sttm.executeQuery();
+                if(rs.next()){
+                    codCurso.setText(rs.getString("idcurso"));
+                    nomeCurso.setText(rs.getString("nomecurso"));
+                }else{
+                    codCurso.setText("not");
+                }
+            }else{
+                codCurso.setText("not");
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }finally{
+            try {
+                conexao.con.close();
+            } catch (Exception e) {
+            }
+        }
     }//GEN-LAST:event_codCursoFocusLost
 
     /**

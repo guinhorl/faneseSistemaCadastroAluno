@@ -29,7 +29,7 @@ public class CadAluno extends javax.swing.JFrame {
         numCelular.setText("");
         emailAluno.setText("");
         nomeCurso.setText("");
-        nomeTurma.setText("");
+        idTurma.setText("");
     }
 
     /**
@@ -41,6 +41,7 @@ public class CadAluno extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jFormattedTextField1 = new javax.swing.JFormattedTextField();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         numFone = new javax.swing.JTextField();
@@ -57,11 +58,13 @@ public class CadAluno extends javax.swing.JFrame {
         codAluno = new javax.swing.JLabel();
         nomeAluno = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        nomeTurma = new javax.swing.JTextField();
+        idTurma = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         idCurso = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         nomeCurso = new javax.swing.JTextField();
+
+        jFormattedTextField1.setText("jFormattedTextField1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -167,10 +170,10 @@ public class CadAluno extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(nomeAluno))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel6))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -183,7 +186,7 @@ public class CadAluno extends javax.swing.JFrame {
                                 .addComponent(emailAluno, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(nomeTurma, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(idTurma, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jLabel5)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -216,12 +219,12 @@ public class CadAluno extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(nomeTurma, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(idTurma, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5)
                     .addComponent(idCurso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7)
                     .addComponent(nomeCurso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(butNovoAluno)
                     .addComponent(butGravarAluno)
@@ -271,7 +274,7 @@ public class CadAluno extends javax.swing.JFrame {
                     numFone.setText(rs.getString("telefone"));
                     numCelular.setText(rs.getString("celular"));
                     emailAluno.setText(rs.getString("email"));
-                    nomeTurma.setText(rs.getString("nomeTurma"));
+                    idTurma.setText(rs.getString("nomeTurma"));
                     nomeCurso.setText(rs.getString("nomecurso"));
                 }else{
                     matrAluno.setText("NOVO");
@@ -302,20 +305,24 @@ public class CadAluno extends javax.swing.JFrame {
         try {
             conn.conectar();
             if(matrAluno.getText().equals("NOVO")){
-                sql = "insert into aluno(nome,telefone,celular,email) values(?,?,?,?)";
+                sql = "insert into aluno(nome,telefone,celular,email,id_curso,id_turma) values(?,?,?,?,?,?)";
                 conn.sttm = conn.con.prepareStatement(sql);
                 conn.sttm.setString(1, nomeAluno.getText());
                 conn.sttm.setInt(2, Integer.parseInt(numFone.getText()));
                 conn.sttm.setInt(3, Integer.parseInt(numCelular.getText()));
                 conn.sttm.setString(4, emailAluno.getText());
+                conn.sttm.setInt(5, Integer.parseInt(idCurso.getText()));
+                conn.sttm.setInt(6, Integer.parseInt(idTurma.getText()));
             }else{
-                sql = "update aluno set nome = ?, telefone = ?, celular = ?, email = ? where matricula = ?";
+                sql = "update aluno set nome = ?, telefone = ?, celular = ?, email = ?, id_curso = ?, id_turma = ? where matricula = ?";
                 conn.sttm = conn.con.prepareStatement(sql);
                 conn.sttm.setString(1, nomeAluno.getText());
                 conn.sttm.setInt(2, Integer.parseInt(numFone.getText()));
                 conn.sttm.setInt(3, Integer.parseInt(numCelular.getText()));
                 conn.sttm.setString(4, emailAluno.getText());
-                conn.sttm.setInt(5, Integer.parseInt(matrAluno.getText()));
+                conn.sttm.setInt(5, Integer.parseInt(idCurso.getText()));
+                conn.sttm.setInt(6, Integer.parseInt(idTurma.getText()));
+                conn.sttm.setInt(7, Integer.parseInt(matrAluno.getText()));
             }
             conn.sttm.executeUpdate();
             conn.con.commit();
@@ -454,6 +461,8 @@ public class CadAluno extends javax.swing.JFrame {
     private javax.swing.JLabel codAluno;
     private javax.swing.JTextField emailAluno;
     private javax.swing.JTextField idCurso;
+    private javax.swing.JTextField idTurma;
+    private javax.swing.JFormattedTextField jFormattedTextField1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -465,7 +474,6 @@ public class CadAluno extends javax.swing.JFrame {
     private javax.swing.JTextField matrAluno;
     private javax.swing.JTextField nomeAluno;
     private javax.swing.JTextField nomeCurso;
-    private javax.swing.JTextField nomeTurma;
     private javax.swing.JTextField numCelular;
     private javax.swing.JTextField numFone;
     // End of variables declaration//GEN-END:variables
