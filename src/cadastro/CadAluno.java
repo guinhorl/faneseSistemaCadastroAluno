@@ -134,6 +134,15 @@ public class CadAluno extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel6.setText("id. Turma:");
 
+        idTurma.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                idTurmaFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                idTurmaFocusLost(evt);
+            }
+        });
+
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel5.setText("id. Curso:");
 
@@ -282,7 +291,7 @@ public class CadAluno extends javax.swing.JFrame {
                 //sql = "select * from aluno where matricula = ? ";
                 //SQL foda da poha mano de ceu
                 //sql = "select A.matricula, A.nome, A.telefone, A.celular, A.email, T.nomeTurma, C.nomecurso from aluno as A inner join curso as C left join turma as T on A.id_curso = C.idcurso where A.matricula = ?";
-                sql = "select A.matricula, A.nome, A.telefone, A.celular, A.email, A.id_curso, A.id_turma, T.nomeTurma, C.nomecurso from aluno as A inner join curso as C inner join turma as T on A.id_curso = C.idcurso where A.matricula = ?";
+                sql = "select A.matricula, A.nome, A.telefone, A.celular, A.email, T.nomeTurma, C.nomecurso, A.id_turma, A.id_curso from aluno A inner join curso C on A.id_curso = C.idcurso  inner join turma T on A.id_turma = T.codigo where A.matricula = ?";
                 conn.conectar();
                 conn.sttm = conn.con.prepareStatement(sql);
                 conn.sttm.setInt(1, Integer.parseInt(matrAluno.getText()));
@@ -293,10 +302,10 @@ public class CadAluno extends javax.swing.JFrame {
                     numFone.setText(rs.getString("telefone"));
                     numCelular.setText(rs.getString("celular"));
                     emailAluno.setText(rs.getString("email"));
-                    idTurma.setText(rs.getString("id_turma"));
                     nomeTurma.setText(rs.getString("nomeTurma"));
-                    idCurso.setText(rs.getString("id_curso"));
                     nomeCurso.setText(rs.getString("nomecurso"));
+                    idTurma.setText(rs.getString("id_turma"));                    
+                    idCurso.setText(rs.getString("id_curso"));
                 }else{
                     matrAluno.setText("NOVO");
                 }
@@ -400,23 +409,33 @@ public class CadAluno extends javax.swing.JFrame {
 
     private void idCursoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_idCursoFocusLost
         // TODO add your handling code here:
-        //vai servir para eu ver qual o curso vou cadastrar para o aluno
-        String sql = "";
+    }//GEN-LAST:event_idCursoFocusLost
+    
+    private void idCursoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_idCursoFocusGained
+   
+    }//GEN-LAST:event_idCursoFocusGained
+
+    private void idTurmaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_idTurmaFocusLost
+        // TODO add your handling code here:
+          String sql = "";
         try {
-            if(!idCurso.getText().equals("") && !idCurso.getText().equals("not")){
-                sql = "select * from curso where idcurso = ?";
+            if(!idTurma.getText().equals("") && !idTurma.getText().equals("not")){
+                //sql = "select * from curso where idcurso = ?";
+                sql = "select T.codigo, T.nomeTurma, T.cod_curso, C.nomecurso from turma T inner join curso C on T.cod_curso = C.idcurso where T.codigo = ?";                
                 conn.conectar();
                 conn.sttm = conn.con.prepareStatement(sql);
-                conn.sttm.setInt(1, Integer.parseInt(idCurso.getText()));
+                conn.sttm.setInt(1, Integer.parseInt(idTurma.getText()));
                 ResultSet rs = conn.sttm.executeQuery();
                 if(rs.next()){
-                    idCurso.setText(rs.getString("idcurso"));
+                    idTurma.setText(rs.getString("codigo"));
+                    nomeTurma.setText(rs.getString("nomeTurma"));
+                    idCurso.setText(rs.getString("cod_curso"));
                     nomeCurso.setText(rs.getString("nomecurso"));
                 }else{
-                    idCurso.setText("not");
+                    idTurma.setText("not");
                 }
             }else{
-                idCurso.setText("not");
+                idTurma.setText("not");
             }
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -426,15 +445,16 @@ public class CadAluno extends javax.swing.JFrame {
             } catch (Exception e) {
             }
         }
-    }//GEN-LAST:event_idCursoFocusLost
-    
-    private void idCursoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_idCursoFocusGained
-        // TODO add your handling code here:
-        //limpar campo idCurso e nomeCurso
-        limparCurso();
-    }//GEN-LAST:event_idCursoFocusGained
+    }//GEN-LAST:event_idTurmaFocusLost
 
-    public void limparCurso(){        
+    private void idTurmaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_idTurmaFocusGained
+        // TODO add your handling code here:
+        limparTurmaCurso();
+    }//GEN-LAST:event_idTurmaFocusGained
+
+    public void limparTurmaCurso(){        
+        idTurma.setText("");
+        nomeTurma.setText("");
         idCurso.setText("");
         nomeCurso.setText("");
     }

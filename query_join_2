@@ -1,0 +1,20 @@
+select * from turma;
+insert into aluno(nome,telefone,celular,email) values('Wagner Ramos Lima',988496433,32463936,'yahoo.com.br');
+
+select a.matricula, a.nome, nA.nota1, nA.nota2, nA.notaExercicio, nA.provaFinal from aluno as a left join notaAluno as nA on a.matricula = nA.matricula where a.matricula = 1;
+
+select t.codigo, t.nome, t.cod_curso, c.nomecurso from turma as t left join curso as c on t.cod_curso = c.idcurso where t.codigo = 1;
+
+insert into turma(codigo,nome,cod_curso) values(2,'405',1);
+
+select a.matricula, a.nome, nA.nota1, nA.nota2, nA.notaExercicio, nA.provaFinal from aluno as a left join notaAluno as nA on a.matricula = nA.id_aluno where a.matricula = 1;
+
+insert into notaAluno values (null,10,8,9,8,null,3);/* where id_aluno = matricula;*/
+SELECT * FROM notaAluno;
+
+update notaAluno set nota1 = 2, nota2 = 2, notaExercicio = 10, provaFinal = 3, mediaFinal = 5 where id_aluno = 3;
+delete FROM notaAluno;
+  
+
+select A.matricula, A.nome, A.telefone, A.celular, A.email, T.nomeTurma, C.nomecurso from aluno A inner join curso C on A.id_curso = C.idcurso  inner join turma T on A.id_turma = T.codigo where A.matricula = 1;
+select T.codigo, T.nomeTurma, T.cod_curso, C.nomecurso from turma T inner join curso C on T.cod_curso = C.idcurso where T.codigo = 2;
